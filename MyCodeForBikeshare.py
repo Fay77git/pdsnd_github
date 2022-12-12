@@ -18,7 +18,7 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
-    
+
     print('\n Hello! Let\'s explore some US bikeshare data!\n')
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     # Asking the user and get the input, then check the spelling
@@ -26,51 +26,51 @@ def get_filters():
         city = str(input("Would you like to see data for Chicago, New York, or Washington?\n")).lower()
         if city == "chicago" or city == "new york" or city == "washington":
             break
-        
-        else: 
+
+        else:
             print("Oops that's not a good typing...")
 
-             
+
     while True:
         answer = str(input("Would you like to filter the data by month, day, or not at all?\n")).lower()
         if answer == "month" or answer == "day" or answer == "all":
             break
-        
-        else: 
+
+        else:
             print("Oops that's not a good typing...")
 
 
     # TO DO: get user input for month (all, january, february, ... , june)
     # Asking the user and get the input, then check the spelling
     if answer == "month":
-        
+
         day = "all"
-        
+
         while True:
            month = str(input("Which month - January, February, March, April, May, or June?\n")).lower()
            if checkMonth(month):
               break
-        
-           else: 
+
+           else:
                 print("Oops that's not a good typing...")
 
-        
+
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     # Asking the user and get the input, then check the spelling
-    elif answer == "day": 
-        
+    elif answer == "day":
+
         month = "all"
-        
+
         while True:
            day = str(input("Which day - Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, or Sunday?\n")).lower()
            if checkDay(day):
               break
-        
-           else: 
+
+           else:
                 print("Oops that's not a good typing...")
     else:
         month, day = "all", "all"
-                       
+
     print('-'*40)
     return city, month, day
 #------------------My Functions ^_^ -----------------------------------------
@@ -88,7 +88,7 @@ def checkDay(dayAnswer):
             if dayAnswer == x:
                 return True
      return False
-    
+
 #-----------------------------------------------------------
 
 def load_data(city, month, day):
@@ -102,7 +102,7 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     # Loading data file into a dataframe
     df = pd.read_csv(CITY_DATA[city])
 
@@ -140,14 +140,14 @@ def time_stats(df):
     # months = ['january', 'february', 'march', 'april', 'may', 'june']
     common_month = df['month'].mode()[0]
     print('Most common month --> ', common_month, "-", months[common_month-1])
-    
+
     # TO DO: display the most common day of week
     print('Most common day of week --> ', df['day_of_week'].mode()[0])
-    
+
     # TO DO: display the most common start hour
     # extract hour from the Start Time column to create an hour column
     df['hour'] = df['Start Time'].dt.hour
-    
+
     # Finding the most popular hour using mode function
     print('Most Popular Start Hour --> ', df['hour'].mode()[0])
 
@@ -168,7 +168,7 @@ def station_stats(df):
     # TO DO: display most commonly used end station
     # Finding the most-common data using mode function
     print("Most commonly used end station --> ", df['End Station'].mode()[0])
-    
+
     # TO DO: display most frequent combination of start station and end station trip
     # Finding the most-common station form start and end stations by making new coulmn and apllying the condition and using mode function
     df['start_end_station'] = np.where((df['Start Station'] == df['End Station']), df['Start Station'], np.nan)
@@ -184,15 +184,15 @@ def trip_duration_stats(df):
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
-    # TO DO: display total travel time 
+    # TO DO: display total travel time
     # Finding the total using sum function
     print("The total travel time is --> ",df["Trip Duration"].sum())
 
-    # TO DO: display mean travel time 
+    # TO DO: display mean travel time
     # Finding the average using mean function
     print("The mean travel time is --> ",df["Trip Duration"].mean())
-    
-    
+
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -238,23 +238,24 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df, city)
-        
+        print("Making changes for the project in refactoring code step")
+        print("Making second change for the project in refactoring code step")
         # Printing 5 lines of raw data using head function after asking the user.
         answer_raw_data = input('\nDo you want to see some raw data? Enter yes or no.\n').lower()
         if answer_raw_data == 'yes':
-            print(df.head()) 
-        
+            print(df.head())
+
             # Asking the user if he/she want to see more lines of raw data, if not the if condition will stop the while loop.
             rows_num = 5
             while True:
-                
+
                 raw_data = input('Do you want to see more 5 lines of raw data? Enter yes or no.\n')
                 if raw_data.lower() != 'yes':
                     break
                 else:
                     print(df.iloc[rows_num : rows_num + 5])
                     rows_num += 5
-        
+
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
