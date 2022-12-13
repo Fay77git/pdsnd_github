@@ -238,7 +238,14 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df, city)
+<<<<<<< HEAD
 
+||||||| parent of f4b2f88 (Making changes for refactoring step)
+        
+=======
+        print("Making changes for the project in refactoring code step")
+        print("Making second change for the project in refactoring code step")
+>>>>>>> f4b2f88 (Making changes for refactoring step)
         # Printing 5 lines of raw data using head function after asking the user.
         answer_raw_data = input('\nDo you want to see some raw data? Enter yes or no.\n').lower()
         if answer_raw_data == 'yes':
